@@ -41,7 +41,7 @@ Static, single-page Privacy Policy for the **NightMap** Android app (`com.nightm
 
 ## Before you publish — things to replace
 
-- **Contact email:** The page uses the placeholder `support@nightmap.app`. Replace it (in both the visible text and the `mailto:` link in `index.html`) with your real support/contact address if it differs.
+- **Contact email:** The page uses `enrique.salazar.dev@gmail.com`. Replace it (in both the visible text and the `mailto:` link in `index.html`) if your contact address changes.
 - **Last updated date:** Currently set to **June 25, 2026**. Update it whenever you change the policy.
 
 ## Notes on content
