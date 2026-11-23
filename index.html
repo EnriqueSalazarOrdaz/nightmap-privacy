@@ -185,10 +185,21 @@
       <p>However, some data may be collected or processed when you use the app:</p>
       <ul>
         <li>
-          <strong>Device and diagnostic data:</strong> Information such as
-          device model, operating system version, app version, language
-          settings, crash logs, and general performance diagnostics may be
-          collected to keep the app stable and functional.
+          <strong>Device and diagnostic data:</strong> On Android, Google
+          Analytics for Firebase may process a pseudonymous app-instance
+          identifier, advertising identifier, approximate location inferred
+          from network information, device and app details, sessions, screen
+          views, app interactions, and purchase or subscription events.
+          Firebase Crashlytics may process crash stack traces, relevant app
+          state, app and operating-system versions, device model, technical
+          metadata, timestamps, installation/session identifiers, and
+          application-not-responding reports. Crash reports may include
+          Analytics breadcrumb events. NightMap does not intentionally send
+          names, email addresses, manual map choices, map coordinates, purchase
+          tokens, or user-entered text in these reports. On iPhone and iPad,
+          NightMap writes the StoreKit restore error domain and code to the
+          device&rsquo;s system log and displays those values in the app; it does
+          not integrate Firebase Analytics or Crashlytics.
         </li>
         <li>
           <strong>Advertising identifiers:</strong> When ads are shown, Google
@@ -197,11 +208,13 @@
           depend on the platform, device settings, and consent choices.
         </li>
         <li>
-          <strong>Credits and usage:</strong> Your credit balance, credits
-          earned from rewarded ads, and related feature state are stored and
-          processed locally on your device unless a platform or advertising
-          service needs information to validate a purchase, serve an ad, or
-          prevent abuse. We do not use credits to identify you.
+          <strong>Credits and usage:</strong> Your credit balance and map
+          selections are stored or processed locally on your device. On iPhone
+          and iPad, rewarded credits are also granted locally after a completed
+          rewarded ad. On Android, Google Analytics for Firebase receives
+          rewarded-ad events, including technical ad status and the reward
+          type/amount; the app does not send your credit balance or manual map
+          choices to Analytics.
         </li>
         <li>
           <strong>Purchase and subscription status:</strong> Whether you hold
@@ -214,12 +227,23 @@
         We do not sell your personal information.
       </p>
       <p>
-        Information needed for app state, such as credits and some diagnostic
-        details, may remain on your device. Information sent outside the device
-        is limited to what is needed by the relevant service, such as AdMob and
-        UMP for advertising and consent, or Google Play and Apple for purchases
-        and subscription status. These providers process information under
-        their own privacy policies.
+        <strong>iPhone and iPad:</strong> Credits are stored locally on your
+        device. Map choices and matching are processed locally. During an App
+        Store restore failure, NightMap records and displays the error domain
+        and code through the device&rsquo;s system logging facility; the iOS app
+        does not include Firebase Analytics or Crashlytics. AdMob and UMP
+        communicate with Google to provide ads and manage consent, and StoreKit
+        communicates with Apple to handle purchases and subscription status.
+      </p>
+      <p>
+        <strong>Android:</strong> Credits and app state are stored on your
+        device, while Google Analytics for Firebase records app usage and ad
+        events, and Firebase Crashlytics reports release crashes and
+        application-not-responding events. Google Play Billing handles
+        purchases and subscription status. AdMob and UMP process information
+        needed for advertising and consent. See the platform-specific sections
+        below for more detail. These providers process information under their
+        own privacy policies.
       </p>
     </section>
 
@@ -262,10 +286,10 @@
     <section>
       <h2>4. Ads and Rewarded Ads</h2>
       <p>
-        NightMap uses <strong>Google AdMob</strong> on supported Android and
-        iPhone/iPad versions to display banner ads to free users and to deliver
-        rewarded video ads that grant credits upon completion. To serve and
-        measure ads, Google AdMob and its partners may
+        NightMap uses <strong>Google AdMob</strong> on Android and iPhone/iPad
+        to display banner ads to free users and to deliver rewarded video ads
+        that grant credits upon completion. To serve and measure ads, Google
+        AdMob and its partners may
         collect and process data, including advertising identifiers, device
         information, IP address, and ad interaction data, in accordance with
         their own privacy policies.
@@ -274,15 +298,25 @@
         Ads may be personalized or non-personalized depending on your consent
         choices and applicable regional requirements.
       </p>
+      <p>
+        On Android, Google Analytics for Firebase also records app and
+        monetization activity, including rewarded-ad request, load, show,
+        failure, and reward events with technical event details. On iPhone and
+        iPad, the app does not integrate Firebase Analytics or Crashlytics;
+        AdMob and UMP may still send their own service, advertising, and
+        consent-related data to Google.
+      </p>
       <h3>Consent (Google UMP)</h3>
       <p>
         Where required by applicable law (for example, in the European Economic
         Area, the United Kingdom, and other applicable regions), NightMap uses
         the <strong>Google User Messaging Platform (UMP) SDK</strong> to present
-        a consent flow before requesting ads. UMP stores or returns the consent
-        signal needed by the advertising SDK; your choices determine whether
-        personalized advertising is shown. You can review or change your
-        consent options where the app makes them available.
+        a consent flow before requesting ads. The app checks UMP&rsquo;s consent
+        state before initializing AdMob and requesting ads. UMP stores or
+        returns the consent signal needed by the advertising SDK; your choices
+        determine whether ads can be requested and whether personalized
+        advertising is available. When UMP requires it, you can reopen Google&rsquo;s
+        privacy options from the app.
       </p>
       <p>
         For more information about how Google uses data when you use apps that
@@ -316,6 +350,11 @@
         </a>.
       </p>
       <p>
+        On iOS, NightMap uses StoreKit 2 on the device to look up the product,
+        purchase it, restore purchases, and check verified subscription
+        entitlements. The app has no server-side purchase verification service.
+      </p>
+      <p>
         For Android purchases, Google Play&rsquo;s handling of your data is governed by
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
           Google&rsquo;s Privacy Policy
@@ -330,9 +369,11 @@
         its third-party services may use device identifiers and similar
         technologies to deliver and measure advertising and to support core
         functionality. On Android, this may include the
-        <strong>Google Advertising ID</strong>. On iPhone and iPad, any
-        advertising identifier use is subject to the platform, device settings,
-        and applicable consent requirements.
+        <strong>Google Advertising ID</strong>. On iPhone and iPad, the app
+        includes SKAdNetwork identifiers for ad attribution. The inspected iOS
+        app code does not request App Tracking Transparency authorization or
+        directly access IDFA; Google&rsquo;s advertising SDK may process identifiers
+        available under the platform, device settings, and consent choices.
       </p>
       <p>
         On most Android devices you can reset your Advertising ID or opt out of
@@ -371,6 +412,13 @@
         </li>
       </ul>
       <p>
+        On Android only, the app also uses Google Analytics for Firebase and
+        Firebase Crashlytics. See
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">
+          Firebase privacy and security information
+        </a>.
+      </p>
+      <p>
         We encourage you to review the privacy policies of these providers. We
         are not responsible for the privacy practices of third parties.
       </p>
@@ -392,10 +440,11 @@
       <p>
         We retain information only for as long as necessary to provide the app&rsquo;s
         features, comply with legal obligations, resolve disputes, and enforce
-        our agreements. Data processed by third-party services such as Google
-        AdMob and Google Play is retained according to those providers&rsquo; own
-        retention policies. Locally stored data, such as your credit balance, can
-        generally be cleared by clearing the app&rsquo;s data or uninstalling the app.
+        our agreements. Google Analytics, Crashlytics, AdMob, UMP, Google Play,
+        and Apple retain data they process according to their respective
+        settings and policies. Locally stored data, such as your credit
+        balance, can generally be cleared by clearing the app&rsquo;s data or
+        uninstalling the app.
       </p>
     </section>
 
@@ -419,6 +468,11 @@
         <li>
           <strong>App data:</strong> You can remove locally stored data by
           clearing the app&rsquo;s storage or uninstalling NightMap.
+        </li>
+        <li>
+          <strong>Google privacy choices:</strong> On iOS, reopen the privacy
+          options in NightMap when the option is required; on Android, use the
+          in-app privacy controls where available and your device&rsquo;s ad settings.
         </li>
       </ul>
       <p>
