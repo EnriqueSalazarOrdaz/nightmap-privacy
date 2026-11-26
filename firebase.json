@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "nightmap-58a4d",
+    "public": "hosting/public",
+    "ignore": ["**/.*", "**/node_modules/**"]
+  }
+}
